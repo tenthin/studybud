@@ -17,6 +17,7 @@ from .forms import RoomForm
 # ]
 
 def loginPage(request):
+    page = 'login'
     if request.method =="POST":
         username=request.POST.get('username')
         password=request.POST.get('password')
@@ -33,12 +34,17 @@ def loginPage(request):
             return redirect('home')
         else:
             messages.error(request,'Username or Password does not exist')
-    context = {}
+    context = {'page':page}
     return render(request,'base/login_register.html',context)
 
 def logoutUser(request):
     logout(request)
     return redirect('home')
+
+def registerPage(request):
+    page='register'
+    return render(request,'base/login_register.html')
+
 
 def home(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
